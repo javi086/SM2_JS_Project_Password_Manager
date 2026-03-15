@@ -5,82 +5,249 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-<body class="font-sans">
+<body class="bg-black text-white font-sans antialiased">
+    <header class="sticky top-0 z-50 bg-zinc-900">
+        <!--sticky top-0 z-50  I will use it to keep the menu always at the top-->
+        <div class="container mx-auto px-6 py-4" id="top_menu_container">
+            <nav class="flex items-center justify-between">
 
-    <header>
-        <div class="mx-auto px-4 py-8 text-black  border-b-2" id="top_menu_container">
-            <nav class="flex border-black items-center justify-between gap-2 md:gap-6">
-                <div id="logo" class="items-center gap-2">
-                    <span class="text-xl font-bold tracking-tight">EasyPassword</span>
+                <div id="logo" class="flex items-center gap-2 group cursor-pointer">
+                    <!--Group and rotate to give the effect to the logo "E"-->
+                    <div class="w-10 h-10 bg-red-600 rounded flex items-center justify-center group-hover:rotate-20">
+                        <span class="text-white font-black text-2xl">E</span>
+                    </div>
+                    <span class="text-3xl font-bold text-white">
+                        Easy<span class="text-red-600">Pass</span>
+                    </span>
                 </div>
-                <ul class="hidden md:flex items-center gap-4  font-medium">
-                    <li><a href="#" class="hover:text-red-500 transition-colors pr-4 border-r-1">Why EasyPass?</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition-colors pr-4 border-r-1">Persona</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition-colors pr-4 border-r-1">Busines</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition-colors pr-4 border-r-1">Pricing</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition-colors pr-4 border-r-1">Partners</a></li>
+
+                <ul class="flex items-center gap-1  text-base">
+                    <li><a href="#" class="px-4 py-2 text-zinc-300 hover:text-white hover:bg-zinc-800 rounded-lg">Why
+                            EasyPass?</a></li>
+                    <li><a href="#"
+                            class="px-4 py-2 text-zinc-300 hover:text-white hover:bg-zinc-800 rounded-lg">Personal</a>
+                    </li>
+                    <li><a href="#"
+                            class="px-4 py-2 text-zinc-300 hover:text-white hover:bg-zinc-800 rounded-lg">Business</a>
+                    </li>
+                    <li><a href="#"
+                            class="px-4 py-2 text-zinc-300 hover:text-white hover:bg-zinc-800 rounded-lg">Pricing</a>
+                    </li>
                 </ul>
-                <div class="items-center gap-2">
-                    <span class="hover:text-red-500 transition-colors">Log In</span>
+
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-zinc-300 hover:text-white hover:bg-zinc-800">Log In</a>
+                    <button class="bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-full text-sm font-bold">
+                        Get Started
+                    </button>
                 </div>
+
             </nav>
         </div>
     </header>
 
     <main>
         <!--Slogan-->
-        <div class="text-center border p-4 my-10">
-            <h1>This is the slogan of the company</h1>
+        <div class="text-center  p-4 my-10 bg-zinc-900">
+            <h1 class="text-6xl font-extrabold text-white leading-tight">
+                Make security the <span class="text-red-600 italic">easiest</span><br>
+                part of your life with EasyPass.
+            </h1>
         </div>
 
         <!--Initial message-->
-        <div class="flex gap-4 border">
-            <div class="flex-grow h-16 border">
-                left section to include a message or special offer
+        <div class="flex gap-4 border items-center overflow-hidden">
+            <div class="flex-grow h-60 border flex items-center px-4">
+                <span>(THIS SECTION IS STILL PENDING. I NEED TO THINK WHAT COULD IT BE)</span>
             </div>
-            <div class="flex-none w-16 h-16">
-                this will be an image
+
+            <div class="flex-none w-60 h-60 rounded-lg overflow-hidden shadow-lg border">
+                <img class="h-full w-full object-cover" src="/img/password.jpg" alt="Description of the image">
             </div>
         </div>
 
         <!--Products-->
-        <section class="py-20 border">
-            <div class="text-center mb-1">
-                <h2 class="text-3xl font-bold">The best plans for you</h2>
-                <p>I NEED TO INCLUDE OPTIONS: MONTHLY, 1 YEAR, 2 YEARS</p>
-            </div>
+        <section class="bg-black min-h-screen flex items-center justify-center p-8">
 
-            <div class="grid grid-cols-3 gap-8 mx-auto border">
-                <div class="flex flex-row">
+            <div class="max-w-6xl w-full">
+                <!-- Section Title -->
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl font-bold text-white mb-4">Choose Your Plan</h1>
+                    <p class="text-gray-400 text-lg">Keep it simple, keep it segure, keep it with our EasyPass plans.</p>
+                </div>
 
-                    <div class="p-8 bg-red-200 border-zinc-800 rounded-3xl flex flex-col ">
-                        <h3 class="text-3xl  mb-2">Premium</h3>
-                        <div class=" mb-2">
-                            <span>The best individual plan fro...</span>
+                <!-- Cards Container -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                    <!-- Individual Plan -->
+                    <div
+                        class="bg-white rounded-lg p-8 hover:shadow-2xl hover:shadow-red-500/20 transition duration-300">
+                        <h2 class="text-2xl font-bold text-black mb-2">Individual</h2>
+                        <p class="text-gray-600 mb-6">Perfect for personal use</p>
+
+                        <div class="mb-6">
+                            <span class="text-4xl font-bold text-black">$4.99</span>
+                            <span class="text-gray-600">/month</span>
                         </div>
-                        <div class="flex items-baseline gap-1 mb-6">
-                            <span class="text-3xl font-bold">$0</span>
-                            <span class="text-zinc-500">/month</span>
-                        </div>
 
-                        <div class=" mb-2">
-                            <span>Features available:</span>
-                        </div>
-
-                        <ul class="space-y-4 mb-8 flex-grow">
-                            <li class="flex items-center gap-3 text-sm">
-                                <span class="text-emerald-500">✔</span> Unlimited Passwords
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">✓</span>
+                                <span class="text-gray-700">Unlimited passwords</span>
                             </li>
-                            <li class="flex items-center gap-3 text-sm">
-                                <span class="text-emerald-500">✔</span> 1 Device
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">✓</span>
+                                <span class="text-gray-700">1 device</span>
                             </li>
-                            <li class="flex items-center gap-3 text-sm opacity-50">
-                                <span>✘</span> Dark Web Monitoring
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">✓</span>
+                                <span class="text-gray-700">Password generator</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">✓</span>
+                                <span class="text-gray-700">Secure vault</span>
                             </li>
                         </ul>
+
+                        <button
+                            class="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition duration-300">
+                            Get Started
+                        </button>
                     </div>
-                    <div class="basis-64 p-8 bg-red-400 border-zinc-800 rounded-3xl">02</div>
-                    <div class="basis-64 p-8 bg-red-200 border-zinc-800 rounded-3xl">03</div>
+
+                    <!-- Premium Plan (Featured) -->
+                    <div class="bg-red-600 rounded-lg p-8 transform md:scale-105 shadow-2xl relative">
+                        <!-- Popular Badge -->
+
+                        <h2 class="text-2xl font-bold text-white mb-2">Premium</h2>
+                        <p class="text-red-100 mb-6">Best for power users</p>
+
+                        <div class="mb-6">
+                            <span class="text-4xl font-bold text-white">$9.99</span>
+                            <span class="text-red-100">/month</span>
+                        </div>
+
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start">
+                                <span class="text-white mr-2">✓</span>
+                                <span class="text-white">Unlimited passwords</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-white mr-2">✓</span>
+                                <span class="text-white">Unlimited devices</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-white mr-2">✓</span>
+                                <span class="text-white">Password generator</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-white mr-2">✓</span>
+                                <span class="text-white">Secure vault</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-white mr-2">✓</span>
+                                <span class="text-white">Priority support</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-white mr-2">✓</span>
+                                <span class="text-white">Dark web monitoring</span>
+                            </li>
+                        </ul>
+
+                        <button
+                            class="w-full bg-white text-red-600 py-3 rounded-lg hover:bg-gray-100 transition duration-300 font-bold">
+                            Get Started
+                        </button>
+                    </div>
+
+                    <!-- Familiar (Family) Plan -->
+                    <div
+                        class="bg-white rounded-lg p-8 hover:shadow-2xl hover:shadow-red-500/20 transition duration-300">
+                        <h2 class="text-2xl font-bold text-black mb-2">Family</h2>
+                        <p class="text-gray-600 mb-6">Share with loved ones</p>
+
+                        <div class="mb-6">
+                            <span class="text-4xl font-bold text-black">$14.99</span>
+                            <span class="text-gray-600">/month</span>
+                        </div>
+
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">✓</span>
+                                <span class="text-gray-700">Unlimited passwords</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">✓</span>
+                                <span class="text-gray-700">Up to 6 users</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">✓</span>
+                                <span class="text-gray-700">Unlimited devices</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">✓</span>
+                                <span class="text-gray-700">Password generator</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">✓</span>
+                                <span class="text-gray-700">Family vault sharing</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">✓</span>
+                                <span class="text-gray-700">Priority support</span>
+                            </li>
+                        </ul>
+
+                        <button
+                            class="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition duration-300">
+                            Get Started
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+
+        <!--Testimonials-->
+        <section class="py-16">
+            <div class="container mx-auto px-6">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                    <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 hover:border-red-600">
+                        <p class="text-zinc-300 text-sm mb-6">
+                            "EasyPassword made my digital life so much simpler. The interface is intuitive and fast."
+                        </p>
+                        <h6 class="font-bold text-white">Alex Johnson</h6>
+                        <span class="text-zinc-500 text-xs">Security Analyst</span>
+                    </div>
+
+                    <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 hover:border-red-600">
+                        <p class="text-zinc-300 text-sm mb-6">
+                            "I finally stopped writing passwords on sticky notes. Best decision I've made this year."
+                        </p>
+                        <h6 class="font-bold text-white">Maria Garcia</h6>
+                        <span class="text-zinc-500 text-xs">Software Engineer</span>
+                    </div>
+
+                    <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 hover:border-red-600">
+                        <p class="text-zinc-300 text-sm mb-6">
+                            "The zero-knowledge encryption gives me peace of mind. Highly recommend it."
+                        </p>
+                        <h6 class="font-bold text-white">David Kim</h6>
+                        <span class="text-zinc-500 text-xs">Freelancer</span>
+                    </div>
+
+                    <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 hover:border-red-600">
+                        <p class="text-zinc-300 text-sm mb-6">
+                            "Simple, elegant, and secure. Everything I needed for my personal vault."
+                        </p>
+                        <h6 class="font-bold text-white">Sarah Smith</h6>
+                        <span class="text-zinc-500 text-xs">Student</span>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -88,55 +255,68 @@
 
     </main>
 
-    <footer>
-        <div class="table w-full border" id="footer_container">
-            <div class="table-header-group">
-                <div class="table-row">
-                    <div class="table-cell text-left">Resources</div>
-                    <div class="table-cell text-left">Company</div>
-                    <div class="table-cell text-left">Social Media</div>
+    <footer class="bg-black pt-16 pb-8">
+        <div class="container mx-auto px-6" id="footer_container">
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+
+                <div>
+                    <h3 class="text-white font-bold uppercase text-sm mb-6 border-l-2 border-red-600 pl-3">
+                        Resources
+                    </h3>
+                    <ul class="space-y-4 text-zinc-400 text-sm">
+                        <li><a href="#" class="hover:text-red-500 transition-colors">OPT 1</a></li>
+                        <li><a href="#" class="hover:text-red-500 transition-colors">OPT 2</a></li>
+                        <li><a href="#" class="hover:text-red-500 transition-colors">OPT 3</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold uppercase text-sm mb-6 border-l-2 border-red-600 pl-3">
+                        Company
+                    </h3>
+                    <ul class="space-y-4 text-zinc-400 text-sm">
+                        <li><a href="#" class="hover:text-red-500 transition-colors">OPT 1</a></li>
+                        <li><a href="#" class="hover:text-red-500 transition-colors">OPT 2</a></li>
+                        <li><a href="#" class="hover:text-red-500 transition-colors">OPT 3</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold uppercase text-sm mb-6 border-l-2 border-red-600 pl-3">
+                        Tool & Help
+                    </h3>
+                    <ul class="space-y-4 text-zinc-400 text-sm">
+                        <li><a href="#" class="hover:text-red-500 transition-colors">OPT 1</a></li>
+                        <li><a href="#" class="hover:text-red-500 transition-colors">OPT 2</a></li>
+                        <li><a href="#" class="hover:text-red-500 transition-colors">OPT 3</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold uppercase text-sm mb-6 border-l-2 border-red-600 pl-3">
+                        Connect
+                    </h3>
+                    <ul class="space-y-4 text-zinc-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors flex items-center gap-2">Twitter /
+                                X</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors flex items-center gap-2">LinkedIn</a>
+                        </li>
+                        <li><a href="#" class="hover:text-white transition-colors flex items-center gap-2">GitHub</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="table-row-group">
-                <div class="table-row">
-                    <div class="table-cell">
-                        Col 1
-                    </div>
-                    <div class="table-cell">
-                        Col 2
-                    </div>
-                    <div class="table-cell">
-                        Col 3
-                    </div>
-                </div>
-                <div class="table-row">
-                    <div class="table-cell">
-                        Col 1
-                    </div>
-                    <div class="table-cell">
-                        Col 2
-                    </div>
-                    <div class="table-cell">
-                        Col 3
-                    </div>
-                </div>
-                <div class="table-row">
-                    <div class="table-cell">
-                        Col 1
-                    </div>
-                    <div class="table-cell">
-                        Col 2
-                    </div>
-                    <div class="table-cell">
-                        Col 3
-                    </div>
-                </div>
+
+            <div class="pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-zinc-500 text-xs">
+                    © 2026 EasyPassword. All rights reserved.
+                </p>
             </div>
-        </div>
+
         </div>
     </footer>
-
-
+   
 </body>
 
-</html>
+</html> 
