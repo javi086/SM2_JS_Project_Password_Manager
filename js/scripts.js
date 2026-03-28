@@ -16,7 +16,7 @@ async function getProductInformation() {
 
         products.forEach(product => {
             if (product !== null && product !== undefined) {
-                
+
 
                 //Matching the div with the product
                 const planId = product.name.toLowerCase();
@@ -28,7 +28,7 @@ async function getProductInformation() {
                     // 2. Handle the Price (Stripe sends unit_amount in cents)
                     const price = (product.default_price.unit_amount / 100).toFixed(2);
                     const currency = product.default_price.currency.toUpperCase();
-                    const interval = product.default_price.recurring.interval; 
+                    const interval = product.default_price.recurring.interval;
 
                     // 3. Handle Features (Looping through marketing_features)
                     let featuresHTML = '';
@@ -49,27 +49,31 @@ async function getProductInformation() {
                     const subTextColor = isPremium ? 'text-red-100' : 'text-gray-600';
 
                     const content = `
-                    <h2 class="text-2xl font-bold ${textColor} mb-2">${product.name}</h2>
-                    <p class="${subTextColor} mb-6">${product.description}</p>
-                    <div class="mb-6">
-                         <span class="${subTextColor}">${currency}</span>
-                        <span class="text-4xl font-bold ${textColor}">$${price}</span>
-                        <span class="${subTextColor}">/${interval}</span>
-                    </div>
-                    <ul class="space-y-3 mb-8 ${textColor}">
-                        ${featuresHTML}
-                    </ul>
-                    <div class="mt-auto">
-                        <stripe-buy-button 
-                            buy-button-id="${buyButtonId}"
-                            publishable-key="pk_test_51T98ZILrO7VaOxlC62zntR5yYhHBTy5IXRwmMxZoORx9nqrMhGWFEgC2QBxva7mwO5pJF13kDeOn5NJp4MKZ3LU200kpmtT9EC">
-                        </stripe-buy-button>
-                     </div>
+                    <h2 class="text-xl md:text-2xl font-bold ${textColor} mb-2">${product.name}</h2>
+    
+    <p class="${subTextColor} text-sm md:text-base mb-6">${product.description}</p>
+    
+    <div class="mb-6">
+         <span class="${subTextColor} text-xs uppercase">${currency}</span>
+         <span class="text-3xl md:text-4xl font-bold ${textColor}">$${price}</span>
+        <span class="${subTextColor} text-sm">/${interval}</span>
+    </div>
+
+    <ul class="space-y-3 mb-8 ${textColor} text-sm md:text-base">
+        ${featuresHTML}
+    </ul>
+
+    <div class="mt-auto pt-4">
+        <stripe-buy-button 
+            buy-button-id="${buyButtonId}"
+            publishable-key="pk_test_51T98ZILrO7VaOxlC62zntR5yYhHBTy5IXRwmMxZoORx9nqrMhGWFEgC2QBxva7mwO5pJF13kDeOn5NJp4MKZ3LU200kpmtT9EC">
+        </stripe-buy-button>
+     </div>
                 `;
                     container.innerHTML = content;
                 }
             }
-            else{
+            else {
                 console.log("Object with nulls or undefined");
                 console.log(product)
             }
