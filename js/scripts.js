@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 async function getProductInformation() {
     try {
-        const response = await fetch('http://localhost:3000/api/products');
+        //const response = await fetch('http://localhost:3000/api/products'); -- this was needed only when I was in local mode but no once I published it
+        const response = await fetch('/api/products');
         const products = await response.json();
 
         if (!response.ok) {
