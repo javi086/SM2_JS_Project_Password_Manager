@@ -67,7 +67,7 @@ app.post('/webhook', express.raw({type: 'application/json'}), async (request, re
 });
 
 /******************************************************/
-// 4. GENERAL ROUTES (Endpoints) & STATIC FILES
+// 4. ENDPOINTs & STATIC FILES
 /******************************************************/
 
 app.use(express.static(path.join(__dirname, '../')));  // This must be first because, it tells Express to look for the static files from the parent directory (where index.html is).
@@ -104,8 +104,20 @@ apiRouter.get('/payments', async (req, res) => {
 
 // ENDPOINT - RSS Feed 
 apiRouter.get('/news', async (req, res) => {
+  try {
+    const newsFeed = await parser.parseURL('https://www.cbc.ca/webfeed/rss/rss-technology');
+        const topStories = newsFeed.items.slice(0, 5).map(item => ({ // I only want the top 5 items 
+            title: item.title,
+            link: item.link,
+            date: item.pubDate
+        }));
+    res.json(topStories);
+  } catch (error) {
+    console.error('RSS Error:', error);
+    res.status(500).json({ error: 'Failed to fetch news' });
+  }
 
-}
+});
 
 
 app.use('/api/easypassword', apiRouter); // Prefix all API routes with /api/easypassword
