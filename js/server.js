@@ -147,8 +147,6 @@ async function savePayment(email, amount, transactionId, planName) {
     console.error('Error saving payment:', err);
   }
 }
-
-
 /******************************************************/
 //  START SERVER (This must be at the END of the file, after all routes and functions once everything else has been defined)
 /******************************************************/
