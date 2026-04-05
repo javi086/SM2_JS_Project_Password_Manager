@@ -4,10 +4,12 @@
 const express = require('express');
 const cors = require('cors'); // I require it to avoid my error: "Access
 const path = require('path');
-const { Pool } = require('pg'); 
-const app = express(); 
+const { Pool } = require('pg');
+const app = express();
 const Parser = require('rss-parser'); // This will be used to parse the RSS information into a JSON format that I can use in the frontend.
-const parser = new Parser();
+const parser = new Parser({
+  headers: { 'User-Agent': 'EasyPass-Student-Project' },
+});
 
 
 // Initialize Stripe
@@ -40,7 +42,7 @@ pool.connect((err, client, release) => {
 /******************************************************/
 // 3. WEBHOOK ROUTE (Must come BEFORE express.json()). The webhook allows me to handle events from Stripe
 /******************************************************/
-app.post('/webhook', express.raw({type: 'application/json'}), async (request, response) => {
+app.post('/webhook', express.raw({ type: 'application/json' }), async (request, response) => {
   const sig = request.headers['stripe-signature'];
   let event;
 
@@ -54,16 +56,16 @@ app.post('/webhook', express.raw({type: 'application/json'}), async (request, re
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
     console.log("💰 Payment received! Saving to DB...");
-    
+
     // SavePayment is triggered when a payment is successfully executed.
     await savePayment(
-        session.customer_details.email,
-        session.amount_total / 100,
-        session.id,
-        session.metadata.plan_name || "EasyPass Plan"
+      session.customer_details.email,
+      session.amount_total / 100,
+      session.id,
+      session.metadata.plan_name || "EasyPass Plan"
     );
   }
-  response.json({received: true});
+  response.json({ received: true });
 });
 
 /******************************************************/
@@ -72,45 +74,51 @@ app.post('/webhook', express.raw({type: 'application/json'}), async (request, re
 
 app.use(express.static(path.join(__dirname, '../')));  // This must be first because, it tells Express to look for the static files from the parent directory (where index.html is).
 app.get('/', (req, res) => { // This gets the index.html file once the parent directory is set as the static folder (previous step)
-    res.sendFile(path.join(__dirname, '../index.html'));
+  res.sendFile(path.join(__dirname, '../index.html'));
 });
 const apiRouter = express.Router(); // This router will help me to organize the API endpoints.
 
 // ENDPOINT  - Fetch products from Stripe (for the frontend to display)
 apiRouter.get('/products', async (req, res) => {
   try {
-        const products = await stripe.products.list({
-            limit: 3,
-            active: true,
-            expand: ['data.default_price']
-        });
-        res.json(products.data);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+    const products = await stripe.products.list({
+      limit: 3,
+      active: true,
+      expand: ['data.default_price']
+    });
+    res.json(products.data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 
 // ENDPOINT - Fetch payments from the database (for the admin dashboard to display)
 apiRouter.get('/payments', async (req, res) => {
-    try {
-        const result = await pool.query('SELECT * FROM payments ORDER BY created_at DESC');
-        res.json(result.rows); // Send the array of payments back to the frontend
-    } catch (err) {
-        console.error('Error fetching payments:', err);
-        res.status(500).json({ error: 'Database error' });
-    }
+  try {
+    const result = await pool.query('SELECT * FROM payments ORDER BY created_at DESC');
+    res.json(result.rows); // Send the array of payments back to the frontend
+  } catch (err) {
+    console.error('Error fetching payments:', err);
+    res.status(500).json({ error: 'Database error' });
+  }
 });
 
 // ENDPOINT - RSS Feed 
 apiRouter.get('/news', async (req, res) => {
   try {
     const newsFeed = await parser.parseURL('https://www.cbc.ca/webfeed/rss/rss-technology');
-        const topStories = newsFeed.items.slice(0, 5).map(item => ({ // I only want the top 5 items 
-            title: item.title,
-            link: item.link,
-            date: item.pubDate
-        }));
+
+    // Safety check: Ensure we have items
+    if (!newsFeed.items) {
+      return res.json([]);
+    }
+
+    const topStories = newsFeed.items.slice(0, 5).map(item => ({ // I only want the top 5 items 
+      title: item.title,
+      link: item.link,
+      date: item.pubDate
+    }));
     res.json(topStories);
   } catch (error) {
     console.error('RSS Error:', error);
@@ -126,18 +134,18 @@ app.use('/api/easypassword', apiRouter); // Prefix all API routes with /api/easy
 // 5. DATABASE FUNCTIONS
 /******************************************************/
 async function savePayment(email, amount, transactionId, planName) {
-    const query = `
+  const query = `
       INSERT INTO payments (email, amount, transaction_id, plan_name, created_at)
       VALUES ($1, $2, $3, $4, NOW())
       RETURNING *;
     `;
-    const values = [email, amount, transactionId, planName];
-    try {
-      const res = await pool.query(query, values);
-      console.log('Payment saved to DB:', res.rows[0]);
-    } catch (err) {
-      console.error('Error saving payment:', err);
-    }
+  const values = [email, amount, transactionId, planName];
+  try {
+    const res = await pool.query(query, values);
+    console.log('Payment saved to DB:', res.rows[0]);
+  } catch (err) {
+    console.error('Error saving payment:', err);
+  }
 }
 
 
